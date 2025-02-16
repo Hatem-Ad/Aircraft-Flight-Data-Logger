@@ -34,24 +34,30 @@ void log_flight_data(FlightData data)
     // If file pointer is valid, write to the file
     if (fprintf(file, "%.2f,%.2f,%.2f,%.2f\n", data.altitude, data.airspeed, data.heading, data.temperature) < 0) {
         perror("Error writing to file");
-        fclose(file);  // Close the file before returning
+
+        // Close the file before returning
+        fclose(file);  
         return;
 		}
 }
 
 int main()
-{
-	srand(time(NULL)); //Inputed random value.
+{	
+	//Store random value
+	srand(time(NULL)); 
 	FILE *file = fopen("flight_log.csv", "w");
 
     if (file == NULL) {
         perror("Error opening file for writing headers");
-        return 1;  // Exit if the file can't be opened
+        // Exit if the file can't be opened
+        return 1;  
     }
     fprintf(file, "Altitude,Airspeed,Heading,Temperature\n");
-    fclose(file);  // Properly close the file after writing headers
-
-	for (int i = 0; i < 10; ++i) //simulation for 10 flight data entries
+    // Properly close the file after writing headers
+    fclose(file);  
+    
+    //simulation for 10 flight data entries
+	for (int i = 0; i < 10; ++i) 
 	{
 		FlightData data = generate_flight_data();
 		printf("Altitude: %.2f m, Airspeed: %.2f knots, Heading: %.2f degrees, Temperature: %.2f °C\n",
